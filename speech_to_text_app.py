@@ -21,6 +21,7 @@ SAMPLE_RATE = 16000  # Whisper expects 16kHz audio
 CHANNELS = 1
 DTYPE = "float32"
 RECORD_SECONDS = 5  # Duration of each recording chunk in seconds
+POLL_INTERVAL_MS = 200  # Interval in ms for polling the transcription queue
 
 
 def get_default_output_path():
@@ -197,7 +198,7 @@ class SpeechToTextApp:
                     save_text_to_file(text, self.output_filepath)
         except queue.Empty:
             pass
-        self.root.after(200, self._poll_results)
+        self.root.after(POLL_INTERVAL_MS, self._poll_results)
 
     def _start_recording(self):
         """Start the recording loop in a background thread."""

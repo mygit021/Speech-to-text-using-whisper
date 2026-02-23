@@ -21,7 +21,7 @@ class TestGetDefaultOutputPath(unittest.TestCase):
     def test_returns_txt_file_in_cwd(self):
         path = get_default_output_path()
         self.assertTrue(path.endswith(".txt"))
-        self.assertIn(os.getcwd(), path)
+        self.assertEqual(os.path.dirname(path), os.getcwd())
 
 
 class TestSaveTextToFile(unittest.TestCase):
